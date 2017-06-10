@@ -30,7 +30,7 @@ function setGameElements() {
         newGameElem.style.display = 'none';
         pickElem.style.display = 'block';
         resultsElem.style.display = 'block';
-      break;
+        break;
     case 'ended':
         newGameBtn.innerText = 'Jeszcze raz';
     case 'notStarted':
@@ -40,7 +40,6 @@ function setGameElements() {
         resultsElem.style.display = 'none';
   }
 }
-
 
 var playerPointsElem = document.getElementById('js-playerPoints'),
     playerNameElem = document.getElementById('js-playerName'),
@@ -52,13 +51,10 @@ function newGame() {
     player.score = computer.score = 0;
     gameState = 'started';
     setGameElements();
-
     playerNameElem.innerHTML = player.name;
     setGamePoints();
   }
-
 }
-
 
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
@@ -94,9 +90,8 @@ function checkRoundWinner(playerPick, computerPick) {
         computer.score++;
     }
  setGamePoints();
+ restartGame();
 }
-
-
 
 function playerPick(playerPick) {
     var computerPick = getComputerPick();
@@ -111,3 +106,18 @@ function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
 }
+
+var finalScoreElem = document.getElementById('js-resultsElement');
+
+function restartGame() {
+	if (player.score == 10 || computer.score == 10) {
+		gameState = 'ended';
+	    setGameElements();
+	}
+	if (player.score == 10) {
+		finalScoreElem.innerHTML = 'The Winner is ' + player.name;
+	} else if (computer.score == 10) {
+	    finalScoreElem.innerHTML = 'The Winner is Computer';
+	}
+}
+
